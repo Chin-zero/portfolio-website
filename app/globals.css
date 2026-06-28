@@ -198,15 +198,15 @@ body::before {
 
 .immersive-laptop__stage {
   --laptop-progress: 0;
-  --enter-progress: clamp(0, calc((var(--laptop-progress) - 0.44) / 0.2), 1);
-  --warp-progress: clamp(0, calc((var(--laptop-progress) - 0.36) / 0.15), 1);
-  --device-exit: clamp(0, calc((var(--laptop-progress) - 0.4) / 0.1), 1);
-  --blackout-progress: clamp(0, calc((var(--laptop-progress) - 0.39) / 0.12), 1);
-  --site-progress: clamp(0, calc((var(--laptop-progress) - 0.84) / 0.1), 1);
-  --tunnel-progress: clamp(0, calc((var(--laptop-progress) - 0.37) / 0.13), 1);
-  --montage-progress: clamp(0, calc((var(--laptop-progress) - 0.41) / 0.08), 1);
-  --montage-exit: clamp(0, calc((var(--laptop-progress) - 0.68) / 0.08), 1);
-  --handoff-mask: clamp(0, calc((var(--laptop-progress) - 0.66) / 0.08), 1);
+  --enter-progress: clamp(0, calc((var(--laptop-progress) - 0.28) / 0.38), 1);
+  --warp-progress: clamp(0, calc((var(--laptop-progress) - 0.5) / 0.16), 1);
+  --device-exit: clamp(0, calc((var(--laptop-progress) - 0.72) / 0.12), 1);
+  --blackout-progress: clamp(0, calc((var(--laptop-progress) - 0.68) / 0.12), 1);
+  --site-progress: clamp(0, calc((var(--laptop-progress) - 0.82) / 0.12), 1);
+  --tunnel-progress: clamp(0, calc((var(--laptop-progress) - 0.54) / 0.18), 1);
+  --montage-progress: clamp(0, calc((var(--laptop-progress) - 0.64) / 0.08), 1);
+  --montage-exit: clamp(0, calc((var(--laptop-progress) - 0.84) / 0.08), 1);
+  --handoff-mask: clamp(0, calc((var(--laptop-progress) - 0.8) / 0.08), 1);
 }
 
 .immersive-laptop {
@@ -222,12 +222,12 @@ body::before {
 .immersive-laptop__device {
   opacity: clamp(0, calc(1 - var(--device-exit) * 1.45), 1);
   filter:
-    blur(calc(var(--warp-progress) * 14px + var(--device-exit) * 10px))
+    blur(calc(var(--warp-progress) * 8px + var(--device-exit) * 12px))
     saturate(calc(1 - var(--warp-progress) * 0.28))
     brightness(calc(1 - var(--device-exit) * 0.6));
   transform:
-    translate3d(0, calc((var(--laptop-progress) - 0.18) * -18vh), 0)
-    scale(calc(0.72 + var(--laptop-progress) * 4.65 + var(--warp-progress) * 0.28));
+    translate3d(0, calc((var(--laptop-progress) - 0.14) * -15vh), 0)
+    scale(calc(0.72 + var(--laptop-progress) * 4.15 + var(--enter-progress) * 0.52));
   transform-origin: 50% 34%;
   will-change: transform, opacity, filter;
 }
@@ -370,8 +370,8 @@ body::before {
 }
 
 .immersive-laptop__site {
-  opacity: clamp(0, calc(((var(--laptop-progress) - 0.22) / 0.34) - var(--device-exit) * 1.8), 1);
-  filter: blur(calc(var(--device-exit) * 10px));
+  opacity: clamp(0, calc(((var(--laptop-progress) - 0.18) / 0.3) - var(--device-exit) * 0.55), 1);
+  filter: blur(calc(var(--device-exit) * 5px));
   transform: scale(calc(0.94 + var(--enter-progress) * 0.12));
 }
 

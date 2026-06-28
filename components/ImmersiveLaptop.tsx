@@ -64,7 +64,7 @@ export default function ImmersiveLaptop() {
   return (
     <section
       ref={sectionRef}
-      className="immersive-laptop film-grain relative h-[165vh] overflow-clip bg-[#060606] text-paper"
+      className="immersive-laptop film-grain relative h-[210vh] overflow-clip bg-[#060606] text-paper"
       aria-label="作品网站预览"
     >
       <div
