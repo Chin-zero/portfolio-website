@@ -23,7 +23,7 @@ export const aigcVideos: AigcVideo[] = [
     slug: "glasses-ad",
     title: "眼镜广告",
     prompt: "以眼镜产品为核心的 AI 广告短片实验，探索产品质感、人物状态与商业氛围的生成表达。",
-    videoUrl: videoUrl("/videos/web/aigc/glasses-ad-web.mp4"),
+    videoUrl: videoUrl("https://player.bilibili.com/player.html?isOutside=true&aid=116828009467352&bvid=BV1A6Tu6pEGa&cid=39484132462&p=1"),
     year: "2026",
     tags: ["AIGC", "AI 广告", "产品短片"]
   },
