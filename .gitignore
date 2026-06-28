@@ -1,0 +1,15 @@
+.next
+node_modules
+out
+dist
+.env*.local
+*.tsbuildinfo
+.DS_Store
+.pnpm-store
+.deploy
+cloudfunctions
+
+# Large source videos are hosted on Xinpianchang/Bilibili or only used for local export.
+public/videos/works/
+public/videos/web/works/
+public/videos/aigc/
