@@ -37,7 +37,7 @@ export default function AboutSection() {
         <div data-motion-item className="photo-paper border border-white/10 bg-white/[0.04] p-2.5">
           <div data-image-reveal className="relative aspect-[4/5] overflow-hidden bg-[linear-gradient(135deg,#191919,#050505_58%,#2c2016)]">
             <Image
-              src="/images/portrait/about-photo.jpg"
+              src="/images/portrait/about-photo-web.jpg"
               alt="张秦肖像"
               fill
               sizes="(min-width: 768px) 42vw, 100vw"

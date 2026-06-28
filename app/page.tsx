@@ -8,37 +8,17 @@ import FeaturedWorks from "@/components/FeaturedWorks";
 import Footer from "@/components/Footer";
 import Grainient from "@/components/Grainient";
 import Header from "@/components/Header";
+import HeroMedia from "@/components/HeroMedia";
 import ImmersiveLaptop from "@/components/ImmersiveLaptop";
 import MotionSystem from "@/components/MotionSystem";
 import TextPressure from "@/components/TextPressure";
-import Image from "next/image";
 
 function HomeHero() {
   return (
     <section id="top" className="hero-opening film-grain relative min-h-screen overflow-hidden bg-ink text-paper">
       <div className="hero-opening__curtain" />
       <div className="hero-opening__wipe" />
-      <div className="hero-opening__media absolute inset-0 z-100 bg-transparent">
-        <video
-          className="absolute inset-0 w-full h-full object-cover"
-          src="/videos/mobile/hero-preview-h264.mp4"
-          autoPlay
-          muted
-          loop
-          playsInline
-          poster="/images/hero/hero.jpg"
-          preload="auto"
-        />
-        <Image
-          src="/images/hero/hero.jpg"
-          alt="张秦作品视觉片段"
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover"
-          style={{ zIndex: -1 }}
-        />
-      </div>
+      <HeroMedia />
 
       <div className="absolute inset-0 z-20 bg-gradient-to-t from-ink via-ink/30 to-transparent" />
 

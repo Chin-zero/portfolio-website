@@ -4,17 +4,15 @@ import Image from "next/image";
 import { CSSProperties, useEffect, useRef, useState } from "react";
 
 const previewWorks = [
-  "/images/works/under-the-hanging-lake-cover.png",
-  "/images/works/mobile-hospital-cover.jpg",
-  "/images/works/zeekr-8x-cover.png",
+  "/images/works/optimized/under-the-hanging-lake-cover.jpg",
+  "/images/works/optimized/mobile-hospital-cover.jpg",
+  "/images/works/optimized/zeekr-8x-cover.jpg",
 ];
 
-const mobilePreviewVideo = "/videos/mobile/hero-preview-h264.mp4";
-
-const montageVideos = [
-  mobilePreviewVideo,
-  mobilePreviewVideo,
-  mobilePreviewVideo,
+const montageImages = [
+  "/images/works/optimized/under-the-hanging-lake-cover.jpg",
+  "/images/works/optimized/mobile-hospital-cover.jpg",
+  "/images/works/optimized/zeekr-8x-cover.jpg",
 ];
 
 export default function ImmersiveLaptop() {
@@ -88,14 +86,12 @@ export default function ImmersiveLaptop() {
           <div className="immersive-laptop__display relative mx-auto aspect-[16/10] w-full overflow-hidden rounded-[22px] border border-paper/18 bg-black p-[1.1%] shadow-[0_46px_140px_rgba(0,0,0,0.74)]">
             <div className="absolute left-1/2 top-2 z-20 h-1.5 w-1.5 -translate-x-1/2 rounded-full bg-paper/28" />
             <div className="immersive-laptop__screen relative h-full overflow-hidden rounded-[16px] bg-[#060606]">
-              <video
-                className="absolute inset-0 h-full w-full object-cover opacity-75"
-                src={mobilePreviewVideo}
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="metadata"
+              <Image
+                src="/images/hero/hero.jpg"
+                alt=""
+                fill
+                sizes="100vw"
+                className="object-cover opacity-75"
               />
               <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(5,5,5,0.72),rgba(5,5,5,0.18)_48%,rgba(5,5,5,0.62))]" />
 
@@ -151,16 +147,14 @@ export default function ImmersiveLaptop() {
 
         <div className="immersive-laptop__tunnel absolute inset-0 z-20 pointer-events-none" aria-hidden="true" />
         <div className="immersive-laptop__montage absolute inset-0 pointer-events-none" aria-hidden="true">
-          {montageVideos.map((src, index) => (
-            <video
-              key={src}
+          {montageImages.map((src, index) => (
+            <Image
+              key={`${src}-${index}`}
               className="immersive-laptop__montage-clip absolute inset-0 h-full w-full object-cover"
               src={src}
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="metadata"
+              alt=""
+              fill
+              sizes="100vw"
               style={{ ["--clip-index" as string]: index }}
             />
           ))}

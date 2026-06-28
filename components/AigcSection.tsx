@@ -2,11 +2,8 @@
 
 import Grainient from "@/components/Grainient";
 import { aigcVideos } from "@/data/aigcVideos";
-import { useState } from "react";
 
 export default function AigcSection() {
-  const [activeVideos, setActiveVideos] = useState<Record<string, boolean>>({});
-
   return (
     <section id="aigc" data-motion-section className="motion-section relative overflow-hidden border-t border-white/10 bg-ink py-24 md:py-36">
       <Grainient
@@ -46,7 +43,6 @@ export default function AigcSection() {
         <div className="grid gap-5 lg:grid-cols-3">
           {aigcVideos.map((video, index) => {
             const hasVideo = Boolean(video.videoUrl);
-            const isActive = Boolean(activeVideos[video.slug]);
             const frameNumber = `AI 影像 ${String(index + 1).padStart(2, "0")}`;
 
             return (
@@ -56,29 +52,16 @@ export default function AigcSection() {
                 className="group overflow-hidden border border-white/10 bg-white/[0.035] transition duration-500 hover:border-white/24 hover:bg-white/[0.055]"
               >
                 <div data-image-reveal className="work-image-frame relative aspect-video overflow-hidden border border-white/[0.08] bg-[radial-gradient(circle_at_20%_20%,rgba(192,138,85,0.24),transparent_30%),linear-gradient(135deg,#121212,#050505_58%,#211111)]">
-                  {hasVideo && isActive ? (
+                  {hasVideo ? (
                     <video
                       data-parallax-media
                       className="h-full w-full object-cover opacity-90 transition duration-700 group-hover:scale-[1.03] group-hover:opacity-100"
                       src={video.videoUrl}
                       poster={video.poster}
                       controls
-                      preload="none"
+                      preload="metadata"
                       playsInline
-                      autoPlay
                     />
-                  ) : hasVideo ? (
-                    <button
-                      type="button"
-                      data-parallax-media
-                      className="flex h-full w-full items-center justify-center bg-[radial-gradient(circle_at_50%_45%,rgba(192,138,85,0.22),transparent_34%),linear-gradient(135deg,#121212,#050505_58%,#211111)] transition duration-700 group-hover:scale-[1.03]"
-                      onClick={() => setActiveVideos((current) => ({ ...current, [video.slug]: true }))}
-                      aria-label={`播放 ${video.title}`}
-                    >
-                      <span className="flex h-14 w-14 items-center justify-center rounded-full border border-white/20 bg-black/45 backdrop-blur-sm transition duration-300 group-hover:border-white/40 group-hover:bg-white/10">
-                        <span className="ml-1 h-0 w-0 border-y-[10px] border-l-[16px] border-y-transparent border-l-paper" />
-                      </span>
-                    </button>
                   ) : (
                     <div className="flex h-full flex-col justify-between p-5">
                       <div className="flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.18em] text-paper/45">
