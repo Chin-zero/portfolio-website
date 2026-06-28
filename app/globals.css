@@ -370,7 +370,7 @@ body::before {
 }
 
 .immersive-laptop__site {
-  opacity: clamp(0, calc(((var(--laptop-progress) - 0.18) / 0.3) - var(--device-exit) * 0.55), 1);
+  opacity: clamp(0.34, calc(((var(--laptop-progress) - 0.12) / 0.28) - var(--device-exit) * 0.55), 1);
   filter: blur(calc(var(--device-exit) * 5px));
   transform: scale(calc(0.94 + var(--enter-progress) * 0.12));
 }

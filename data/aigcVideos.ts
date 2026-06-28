@@ -15,7 +15,7 @@ export const aigcVideos: AigcVideo[] = [
     slug: "japanese-short-film",
     title: "日系小短片",
     prompt: "日系影像风格的 AI 短片实验，探索人物、氛围与轻叙事的生成影像表达。",
-    videoUrl: videoUrl("/videos/web/aigc/japanese-short-film-web.mp4"),
+    videoUrl: videoUrl("https://player.bilibili.com/player.html?isOutside=true&aid=116828009400676&bvid=BV1C6Tu6HEN8&cid=39484066647&p=1"),
     year: "2026",
     tags: ["AIGC", "AI 影像", "日系风格"]
   },

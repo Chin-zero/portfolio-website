@@ -9,6 +9,27 @@ const previewWorks = [
   "/images/works/optimized/zeekr-8x-cover.jpg",
 ];
 
+const previewItems = [
+  {
+    title: "悬湖之下",
+    client: "海康威视",
+    meta: "纪录片 / 品牌短片",
+    cover: previewWorks[0],
+  },
+  {
+    title: "车轮上的巡回医院",
+    client: "吉利",
+    meta: "公益影像",
+    cover: previewWorks[1],
+  },
+  {
+    title: "ZEEKR 8X",
+    client: "吉利",
+    meta: "商业影像",
+    cover: previewWorks[2],
+  },
+];
+
 const montageImages = [
   "/images/works/optimized/under-the-hanging-lake-cover.jpg",
   "/images/works/optimized/mobile-hospital-cover.jpg",
@@ -87,48 +108,69 @@ export default function ImmersiveLaptop() {
             <div className="absolute left-1/2 top-2 z-20 h-1.5 w-1.5 -translate-x-1/2 rounded-full bg-paper/28" />
             <div className="immersive-laptop__screen relative h-full overflow-hidden rounded-[16px] bg-[#060606]">
               <Image
-                src="/images/hero/hero.jpg"
+                src={previewItems[0].cover}
                 alt=""
                 fill
-                sizes="100vw"
-                className="object-cover opacity-75"
+                sizes="(max-width: 768px) 88vw, 1040px"
+                className="object-cover opacity-80 brightness-90 saturate-90"
               />
-              <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(5,5,5,0.72),rgba(5,5,5,0.18)_48%,rgba(5,5,5,0.62))]" />
+              <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(5,5,5,0.56),rgba(5,5,5,0.12)_48%,rgba(5,5,5,0.5))]" />
 
               <div className="immersive-laptop__site absolute inset-0">
-                <div className="flex h-full flex-col bg-[#050505]">
-                  <div className="flex h-12 shrink-0 items-center justify-between border-b border-paper/10 px-5 font-mono text-[10px] uppercase tracking-[0.16em] text-paper/58">
-                    <span>CHIN</span>
-                    <span>作品 / AIGC / 联系</span>
+                <div className="relative flex h-full flex-col overflow-hidden bg-[#050505]">
+                  <Image
+                    src={previewItems[0].cover}
+                    alt=""
+                    fill
+                    sizes="(max-width: 768px) 88vw, 980px"
+                    className="object-cover opacity-35"
+                    priority
+                  />
+                  <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(5,5,5,0.92),rgba(5,5,5,0.42)_48%,rgba(5,5,5,0.78)),linear-gradient(180deg,rgba(5,5,5,0.34),rgba(5,5,5,0.92))]" />
+                  <div className="relative z-10 flex h-12 shrink-0 items-center justify-between border-b border-paper/10 px-5 font-mono text-[10px] tracking-[0.16em] text-paper/64">
+                    <span>CHIN 作品集</span>
+                    <span>纪录片 / 商业影像 / AIGC</span>
                   </div>
 
-                  <div className="grid min-h-0 flex-1 md:grid-cols-[0.9fr_1.1fr]">
-                    <div className="flex flex-col justify-end p-5 md:p-8">
-                      <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-[#c08a55]">
-                        导演 / 摄影师
-                      </p>
-                      <h3 className="mt-4 text-[clamp(42px,7vw,96px)] font-light leading-[0.84]">
-                        张秦
-                      </h3>
-                      <p className="mt-4 max-w-sm text-sm leading-6 text-paper/68 md:text-base">
-                        纪录、商业影像与 AIGC 视觉的作品入口。
-                      </p>
+                  <div className="relative z-10 grid min-h-0 flex-1 gap-4 p-4 md:grid-cols-[1.1fr_.9fr] md:p-6">
+                    <div className="relative min-h-0 overflow-hidden border border-paper/18 bg-paper/[0.04]">
+                      <Image
+                        src={previewItems[0].cover}
+                        alt=""
+                        fill
+                        sizes="(max-width: 768px) 58vw, 560px"
+                        className="object-cover"
+                        priority
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/82 via-black/10 to-transparent" />
+                      <div className="absolute bottom-4 left-4 right-4">
+                        <p className="font-mono text-[10px] tracking-[0.18em] text-[#c08a55]">
+                          {previewItems[0].client}
+                        </p>
+                        <h3 className="mt-2 text-[clamp(28px,4vw,54px)] font-medium leading-none text-paper">
+                          {previewItems[0].title}
+                        </h3>
+                        <p className="mt-2 text-xs text-paper/72">{previewItems[0].meta}</p>
+                      </div>
                     </div>
 
-                    <div className="grid min-h-0 grid-cols-3 gap-2 p-3 md:gap-3 md:p-5">
-                      {previewWorks.map((src, index) => (
-                        <div
-                          key={src}
-                          className="relative min-h-0 overflow-hidden rounded-md border border-paper/10 bg-paper/5"
-                        >
-                          <Image
-                            src={src}
-                            alt=""
-                            fill
-                            sizes="(max-width: 768px) 28vw, 18vw"
-                            className="object-cover"
-                            priority={index === 0}
-                          />
+                    <div className="grid min-h-0 gap-3">
+                      {previewItems.slice(1).map((item) => (
+                        <div key={item.title} className="grid min-h-0 grid-cols-[1fr_.9fr] overflow-hidden border border-paper/14 bg-black/36">
+                          <div className="relative min-h-0">
+                            <Image
+                              src={item.cover}
+                              alt=""
+                              fill
+                              sizes="(max-width: 768px) 26vw, 240px"
+                              className="object-cover"
+                            />
+                          </div>
+                          <div className="flex min-w-0 flex-col justify-end p-3">
+                            <p className="font-mono text-[9px] tracking-[0.16em] text-[#c08a55]">{item.client}</p>
+                            <p className="mt-2 text-sm font-medium leading-tight text-paper">{item.title}</p>
+                            <p className="mt-1 text-[11px] text-paper/55">{item.meta}</p>
+                          </div>
                         </div>
                       ))}
                     </div>

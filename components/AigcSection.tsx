@@ -43,6 +43,7 @@ export default function AigcSection() {
         <div className="grid gap-5 lg:grid-cols-3">
           {aigcVideos.map((video, index) => {
             const hasVideo = Boolean(video.videoUrl);
+            const isEmbeddedVideo = /^https?:\/\//.test(video.videoUrl);
             const frameNumber = `AI 影像 ${String(index + 1).padStart(2, "0")}`;
 
             return (
@@ -52,7 +53,15 @@ export default function AigcSection() {
                 className="group overflow-hidden border border-white/10 bg-white/[0.035] transition duration-500 hover:border-white/24 hover:bg-white/[0.055]"
               >
                 <div data-image-reveal className="work-image-frame relative aspect-video overflow-hidden border border-white/[0.08] bg-[radial-gradient(circle_at_20%_20%,rgba(192,138,85,0.24),transparent_30%),linear-gradient(135deg,#121212,#050505_58%,#211111)]">
-                  {hasVideo ? (
+                  {hasVideo && isEmbeddedVideo ? (
+                    <iframe
+                      className="h-full w-full"
+                      src={video.videoUrl}
+                      title={`${video.title} player`}
+                      allow="fullscreen; picture-in-picture"
+                      allowFullScreen
+                    />
+                  ) : hasVideo ? (
                     <video
                       data-parallax-media
                       className="h-full w-full object-cover opacity-90 transition duration-700 group-hover:scale-[1.03] group-hover:opacity-100"
