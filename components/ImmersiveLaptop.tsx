@@ -4,22 +4,22 @@ import Image from "next/image";
 import { CSSProperties, useEffect, useRef, useState } from "react";
 
 const previewWorks = [
+  "/images/works/optimized/altay-mobile-clinic-cover.jpg",
   "/images/works/optimized/under-the-hanging-lake-cover.jpg",
-  "/images/works/optimized/mobile-hospital-cover.jpg",
   "/images/works/optimized/zeekr-8x-cover.jpg",
 ];
 
 const previewItems = [
   {
-    title: "悬湖之下",
-    client: "海康威视",
-    meta: "纪录片 / 品牌短片",
+    title: "阿勒泰的移动诊室",
+    client: "吉利",
+    meta: "纪录片 / 公益影像",
     cover: previewWorks[0],
   },
   {
-    title: "车轮上的巡回医院",
-    client: "吉利",
-    meta: "公益影像",
+    title: "悬湖之下",
+    client: "海康威视",
+    meta: "纪录片 / 品牌短片",
     cover: previewWorks[1],
   },
   {
@@ -127,13 +127,18 @@ export default function ImmersiveLaptop() {
                         </h3>
                       </div>
                       <p className="max-w-sm text-xs leading-5 text-paper/56 md:justify-self-end">
-                        纪录片、公益影像与商业短片项目，点击作品进入完整播放页。
+                        汇集纪录片、公益影像与品牌商业片案例，点击作品查看完整影片与项目信息。
                       </p>
                     </div>
 
-                    <div className="grid min-h-0 flex-1 grid-cols-3 gap-3">
+                    <div className="grid min-h-0 flex-1 grid-cols-[1.12fr_0.88fr] grid-rows-2 gap-3">
                       {previewItems.map((item, index) => (
-                        <div key={item.title} className="flex min-w-0 flex-col overflow-hidden border border-paper/14 bg-paper/[0.035]">
+                        <div
+                          key={item.title}
+                          className={`flex min-w-0 flex-col overflow-hidden border border-paper/14 bg-paper/[0.035] ${
+                            index === 0 ? "row-span-2" : ""
+                          }`}
+                        >
                           <div className="relative aspect-video shrink-0 overflow-hidden border-b border-paper/10">
                             <Image
                               src={item.cover}
@@ -149,8 +154,10 @@ export default function ImmersiveLaptop() {
                           </div>
                           <div className="flex min-h-0 flex-1 flex-col justify-end p-3">
                             <p className="font-mono text-[9px] tracking-[0.16em] text-[#c08a55]">{item.client}</p>
-                            <p className="mt-2 truncate text-sm font-medium leading-tight text-paper">{item.title}</p>
-                            <p className="mt-1 truncate text-[11px] text-paper/55">{item.meta}</p>
+                            <p className={`${index === 0 ? "text-base" : "text-xs"} mt-2 truncate font-medium leading-tight text-paper`}>
+                              {item.title}
+                            </p>
+                            <p className="mt-1 truncate text-[10px] text-paper/55">{item.meta}</p>
                           </div>
                         </div>
                       ))}
