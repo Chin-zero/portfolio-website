@@ -15,6 +15,18 @@ import { videoUrl } from "@/lib/media";
 
 export const works: Work[] = [
   {
+    slug: "altay-mobile-clinic",
+    title: "阿勒泰的移动诊室",
+    client: "吉利",
+    category: "纪录片 / 公益影像",
+    role: ["摄影", "现场执行"],
+    year: "2025",
+    cover: "/images/works/optimized/altay-mobile-clinic-cover.jpg",
+    videoUrl: videoUrl("https://player.xinpianchang.com/?aid=13733171&mid=jlyzw0zJqeyQB198"),
+    description: "围绕阿勒泰移动诊疗场景展开的公益纪录影像，记录道路、人物与真实行动中的温度。",
+    tags: ["纪录片", "公益", "移动诊室"]
+  },
+  {
     slug: "under-the-hanging-lake",
     title: "悬湖之下",
     client: "海康威视",

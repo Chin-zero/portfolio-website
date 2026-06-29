@@ -60,6 +60,8 @@ export default function AigcSection() {
                       title={`${video.title} player`}
                       allow="fullscreen; picture-in-picture"
                       allowFullScreen
+                      referrerPolicy="strict-origin-when-cross-origin"
+                      sandbox="allow-scripts allow-same-origin allow-presentation"
                     />
                   ) : hasVideo ? (
                     <video
