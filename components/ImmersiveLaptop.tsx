@@ -145,15 +145,6 @@ export default function ImmersiveLaptop() {
                             className="object-cover opacity-95"
                             priority={index === 0}
                           />
-                          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.05),rgba(0,0,0,0.72))]" />
-                          <div className="absolute left-2 top-2 bg-black/45 px-2 py-1 font-mono text-[8px] tracking-[0.14em] text-paper/75">
-                            {String(index + 1).padStart(2, "0")}
-                          </div>
-                          <div className="absolute inset-x-0 bottom-0 p-2">
-                            <p className="font-mono text-[8px] tracking-[0.14em] text-[#c08a55]">{item.client}</p>
-                            <p className="mt-1 truncate text-[10px] font-medium leading-tight text-paper">{item.title}</p>
-                            <p className="mt-0.5 truncate text-[8px] text-paper/58">{item.meta}</p>
-                          </div>
                         </div>
                       ))}
                     </div>
