@@ -131,33 +131,28 @@ export default function ImmersiveLaptop() {
                       </p>
                     </div>
 
-                    <div className="grid min-h-0 flex-1 grid-cols-[1.12fr_0.88fr] grid-rows-2 gap-3">
+                    <div className="grid shrink-0 grid-cols-3 gap-3">
                       {previewItems.map((item, index) => (
                         <div
                           key={item.title}
-                          className={`flex min-w-0 flex-col overflow-hidden border border-paper/14 bg-paper/[0.035] ${
-                            index === 0 ? "row-span-2" : ""
-                          }`}
+                          className="relative aspect-video min-w-0 overflow-hidden border border-paper/14 bg-paper/[0.035]"
                         >
-                          <div className="relative aspect-video shrink-0 overflow-hidden border-b border-paper/10">
-                            <Image
-                              src={item.cover}
-                              alt=""
-                              fill
-                              sizes="(max-width: 768px) 28vw, 260px"
-                              className="object-cover opacity-90"
-                              priority={index === 0}
-                            />
-                            <div className="absolute left-2 top-2 bg-black/45 px-2 py-1 font-mono text-[8px] tracking-[0.14em] text-paper/70">
-                              {String(index + 1).padStart(2, "0")}
-                            </div>
+                          <Image
+                            src={item.cover}
+                            alt=""
+                            fill
+                            sizes="(max-width: 768px) 28vw, 260px"
+                            className="object-cover opacity-95"
+                            priority={index === 0}
+                          />
+                          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.05),rgba(0,0,0,0.72))]" />
+                          <div className="absolute left-2 top-2 bg-black/45 px-2 py-1 font-mono text-[8px] tracking-[0.14em] text-paper/75">
+                            {String(index + 1).padStart(2, "0")}
                           </div>
-                          <div className="flex min-h-0 flex-1 flex-col justify-end p-3">
-                            <p className="font-mono text-[9px] tracking-[0.16em] text-[#c08a55]">{item.client}</p>
-                            <p className={`${index === 0 ? "text-base" : "text-xs"} mt-2 truncate font-medium leading-tight text-paper`}>
-                              {item.title}
-                            </p>
-                            <p className="mt-1 truncate text-[10px] text-paper/55">{item.meta}</p>
+                          <div className="absolute inset-x-0 bottom-0 p-2">
+                            <p className="font-mono text-[8px] tracking-[0.14em] text-[#c08a55]">{item.client}</p>
+                            <p className="mt-1 truncate text-[10px] font-medium leading-tight text-paper">{item.title}</p>
+                            <p className="mt-0.5 truncate text-[8px] text-paper/58">{item.meta}</p>
                           </div>
                         </div>
                       ))}
