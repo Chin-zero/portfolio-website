@@ -29,7 +29,7 @@ export default function HeroMedia() {
         onCanPlay={() => setVideoReady(true)}
         onPlaying={() => setVideoReady(true)}
       >
-        <source src="/videos/mobile/hero-preview-h264.mp4" type="video/mp4" />
+        <source src="/videos/mobile/hero-preview-10s.mp4" type="video/mp4" />
       </video>
     </div>
   );
