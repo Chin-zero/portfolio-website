@@ -26,13 +26,5 @@ export const aigcVideos: AigcVideo[] = [
     videoUrl: videoUrl("https://player.bilibili.com/player.html?isOutside=true&aid=116828009467352&bvid=BV1A6Tu6pEGa&cid=39484132462&p=1&autoplay=0"),
     year: "2026",
     tags: ["AIGC", "AI 广告", "产品短片"]
-  },
-  {
-    slug: "ai-video-03",
-    title: "AI 影像实验 03",
-    prompt: "使用 AI 生成的品牌氛围片实验。",
-    videoUrl: "",
-    year: "2026",
-    tags: ["AIGC", "品牌氛围", "AI 短片"]
   }
 ];
