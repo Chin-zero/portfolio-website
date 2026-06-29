@@ -1,8 +1,11 @@
 "use client";
 
 import Image from "next/image";
+import { useState } from "react";
 
 export default function HeroMedia() {
+  const [videoReady, setVideoReady] = useState(false);
+
   return (
     <div className="hero-opening__media absolute inset-0 z-10 bg-black">
       <Image
@@ -14,15 +17,20 @@ export default function HeroMedia() {
         className="hero-opening__poster object-cover"
       />
       <video
-        className="hero-opening__video absolute inset-0 h-full w-full object-cover"
-        src="/videos/mobile/hero-preview-h264.mp4"
+        className={`hero-opening__video absolute inset-0 h-full w-full object-cover ${
+          videoReady ? "is-ready" : ""
+        }`}
         autoPlay
         muted
         loop
         playsInline
         poster="/images/hero/hero.jpg"
-        preload="auto"
-      />
+        preload="metadata"
+        onCanPlay={() => setVideoReady(true)}
+        onPlaying={() => setVideoReady(true)}
+      >
+        <source src="/videos/mobile/hero-preview-h264.mp4" type="video/mp4" />
+      </video>
     </div>
   );
 }
