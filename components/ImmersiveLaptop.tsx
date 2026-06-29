@@ -9,27 +9,6 @@ const previewWorks = [
   "/images/works/optimized/zeekr-8x-cover.jpg",
 ];
 
-const previewItems = [
-  {
-    title: "阿勒泰的移动诊室",
-    client: "吉利",
-    meta: "纪录片 / 公益影像",
-    cover: previewWorks[0],
-  },
-  {
-    title: "悬湖之下",
-    client: "海康威视",
-    meta: "纪录片 / 品牌短片",
-    cover: previewWorks[1],
-  },
-  {
-    title: "ZEEKR 8X",
-    client: "吉利",
-    meta: "商业影像",
-    cover: previewWorks[2],
-  },
-];
-
 const montageImages = [
   "/images/works/optimized/under-the-hanging-lake-cover.jpg",
   "/images/works/optimized/mobile-hospital-cover.jpg",
@@ -111,48 +90,35 @@ export default function ImmersiveLaptop() {
               <div className="absolute inset-0 bg-[repeating-linear-gradient(0deg,rgba(255,255,255,0.035)_0_1px,transparent_1px_5px)] opacity-45" />
 
               <div className="immersive-laptop__site absolute inset-0">
-                <div className="relative flex h-full flex-col overflow-hidden bg-[#050505]/92">
-                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_22%_30%,rgba(192,138,85,0.16),transparent_34%),linear-gradient(180deg,rgba(255,255,255,0.035),transparent_28%,rgba(0,0,0,0.36))]" />
-                  <div className="relative z-10 flex h-12 shrink-0 items-center justify-between border-b border-paper/10 px-5 font-mono text-[10px] tracking-[0.16em] text-paper/64">
+                <div className="relative flex h-full flex-col justify-center overflow-hidden bg-[#050505]/92 p-[5%]">
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_22%_30%,rgba(192,138,85,0.13),transparent_34%),linear-gradient(180deg,rgba(255,255,255,0.035),transparent_28%,rgba(0,0,0,0.36))]" />
+
+                  <div className="relative z-10 mb-[4%] flex items-center justify-between font-mono text-[clamp(8px,1.1vw,12px)] tracking-[0.18em] text-paper/52">
                     <span>CHIN 作品集</span>
-                    <span>纪录片 / 商业影像 / AIGC</span>
+                    <span>DOCUMENTARY / COMMERCIAL / AIGC</span>
                   </div>
 
-                  <div className="relative z-10 flex min-h-0 flex-1 flex-col gap-4 p-4 md:p-6">
-                    <div className="grid items-end gap-4 md:grid-cols-[0.9fr_1.1fr]">
-                      <div>
-                        <p className="font-mono text-[10px] tracking-[0.22em] text-[#c08a55]">精选作品</p>
-                        <h3 className="mt-2 text-[clamp(26px,4vw,50px)] font-medium leading-none text-paper">
-                          影像项目入口
-                        </h3>
+                  <div className="relative z-10 grid shrink-0 grid-cols-3 gap-[2.4%]">
+                    {previewWorks.map((cover, index) => (
+                      <div
+                        key={cover}
+                        className="relative aspect-video min-w-0 overflow-hidden border border-paper/18 bg-paper/[0.035]"
+                      >
+                        <Image
+                          src={cover}
+                          alt=""
+                          fill
+                          sizes="(max-width: 768px) 28vw, 280px"
+                          className="object-cover opacity-95"
+                          priority={index === 0}
+                        />
                       </div>
-                      <p className="max-w-sm text-xs leading-5 text-paper/56 md:justify-self-end">
-                        汇集纪录片、公益影像与品牌商业片案例，点击作品查看完整影片与项目信息。
-                      </p>
-                    </div>
+                    ))}
+                  </div>
 
-                    <div className="grid shrink-0 grid-cols-3 gap-3">
-                      {previewItems.map((item, index) => (
-                        <div
-                          key={item.title}
-                          className="relative aspect-video min-w-0 overflow-hidden border border-paper/14 bg-paper/[0.035]"
-                        >
-                          <Image
-                            src={item.cover}
-                            alt=""
-                            fill
-                            sizes="(max-width: 768px) 28vw, 260px"
-                            className="object-cover opacity-95"
-                            priority={index === 0}
-                          />
-                        </div>
-                      ))}
-                    </div>
-
-                    <div className="flex items-center justify-between border-t border-paper/10 pt-3 font-mono text-[9px] tracking-[0.16em] text-paper/42">
-                      <span>作品 / AIGC / 关于 / 联系</span>
-                      <span>2025 - 2026</span>
-                    </div>
+                  <div className="relative z-10 mt-[4%] flex items-center justify-between border-t border-paper/10 pt-[3%] font-mono text-[clamp(7px,0.9vw,10px)] tracking-[0.18em] text-paper/36">
+                    <span>WORK / AIGC / ABOUT / CONTACT</span>
+                    <span>2025 - 2026</span>
                   </div>
                 </div>
               </div>
