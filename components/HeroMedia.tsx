@@ -73,7 +73,6 @@ export default function HeroMedia() {
         }`}
         autoPlay
         muted
-        defaultMuted
         loop
         playsInline
         poster="/images/hero/hero.jpg"
