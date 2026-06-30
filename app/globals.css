@@ -1035,20 +1035,20 @@ body::before {
 .hero-opening__curtain {
   background: #050505;
   transform-origin: 50% 0;
-  animation: openingCurtain 2.2s cubic-bezier(0.76, 0, 0.24, 1) 0.18s both;
+  animation: openingCurtain 1.05s cubic-bezier(0.76, 0, 0.24, 1) 0.06s both;
 }
 
 .hero-opening__wipe {
   background: linear-gradient(90deg, transparent, rgba(245, 245, 245, 0.9), transparent);
   mix-blend-mode: screen;
   transform: translateX(-120%) skewX(-12deg);
-  animation: openingWipe 1.45s cubic-bezier(0.76, 0, 0.24, 1) 0.86s both;
+  animation: openingWipe 1s cubic-bezier(0.76, 0, 0.24, 1) 0.42s both;
 }
 
 .hero-opening__media {
   transform: scale(1.18);
   filter: saturate(0.35) contrast(1.32) brightness(0.62);
-  animation: openingMedia 2.65s cubic-bezier(0.16, 1, 0.3, 1) 0.28s both;
+  animation: openingMedia 1.45s cubic-bezier(0.16, 1, 0.3, 1) 0.08s both;
 }
 
 .hero-opening__poster {

@@ -5,9 +5,17 @@ import { useEffect, useRef, useState } from "react";
 
 export default function HeroMedia() {
   const videoRef = useRef<HTMLVideoElement | null>(null);
+  const [shouldLoadVideo, setShouldLoadVideo] = useState(false);
   const [videoReady, setVideoReady] = useState(false);
 
   useEffect(() => {
+    const loadTimer = window.setTimeout(() => setShouldLoadVideo(true), 1400);
+    return () => window.clearTimeout(loadTimer);
+  }, []);
+
+  useEffect(() => {
+    if (!shouldLoadVideo) return;
+
     const video = videoRef.current;
     if (!video) return;
 
@@ -54,7 +62,7 @@ export default function HeroMedia() {
       window.removeEventListener("touchstart", handleFirstGesture);
       window.removeEventListener("click", handleFirstGesture);
     };
-  }, []);
+  }, [shouldLoadVideo]);
 
   return (
     <div className="hero-opening__media absolute inset-0 z-10 bg-black">
@@ -66,23 +74,25 @@ export default function HeroMedia() {
         sizes="100vw"
         className="hero-opening__poster object-cover"
       />
-      <video
-        ref={videoRef}
-        className={`hero-opening__video absolute inset-0 h-full w-full object-cover ${
-          videoReady ? "is-ready" : ""
-        }`}
-        autoPlay
-        muted
-        loop
-        playsInline
-        poster="/images/hero/hero.jpg"
-        preload="auto"
-        onLoadedData={() => setVideoReady(true)}
-        onCanPlay={() => setVideoReady(true)}
-        onPlaying={() => setVideoReady(true)}
-      >
-        <source src="/videos/mobile/hero-preview-10s.mp4?v=20260629" type="video/mp4" />
-      </video>
+      {shouldLoadVideo ? (
+        <video
+          ref={videoRef}
+          className={`hero-opening__video absolute inset-0 h-full w-full object-cover ${
+            videoReady ? "is-ready" : ""
+          }`}
+          autoPlay
+          muted
+          loop
+          playsInline
+          poster="/images/hero/hero.jpg"
+          preload="metadata"
+          onLoadedData={() => setVideoReady(true)}
+          onCanPlay={() => setVideoReady(true)}
+          onPlaying={() => setVideoReady(true)}
+        >
+          <source src="/videos/mobile/hero-preview-10s.mp4?v=20260630" type="video/mp4" />
+        </video>
+      ) : null}
     </div>
   );
 }
