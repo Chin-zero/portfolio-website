@@ -133,8 +133,9 @@ export default function WorkCard({ work, index, priority = false }: WorkCardProp
         data-motion-item
         className="focus-ring group block h-full w-full text-left"
       >
-        <article className="flex h-full flex-col overflow-hidden border border-white/10 bg-white/[0.03] transition duration-500 hover:border-white/25">
-          <div data-image-reveal className="work-image-frame relative aspect-video shrink-0 overflow-hidden border border-white/[0.08] bg-[linear-gradient(135deg,#171717,#050505_56%,#2b2119)] transition duration-500 group-hover:border-white/[0.18]">
+        <article className="work-card flex h-full flex-col overflow-hidden border border-white/10 bg-white/[0.03] transition duration-500 hover:border-white/25">
+          <div className="work-card__perforation" aria-hidden="true" />
+          <div data-image-reveal className="work-image-frame relative aspect-video shrink-0 overflow-hidden border-y border-white/[0.08] bg-[linear-gradient(135deg,#171717,#050505_56%,#2b2119)] transition duration-500 group-hover:border-white/[0.18]">
             <Image
               src={work.cover}
               alt={`${work.title} cover`}
@@ -148,26 +149,45 @@ export default function WorkCard({ work, index, priority = false }: WorkCardProp
               }}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/15 to-transparent opacity-70 transition group-hover:opacity-95" />
-            <div className="absolute left-4 top-4 z-10 border border-white/15 bg-black/35 px-2 py-1 font-mono text-[10px] uppercase tracking-[0.18em] text-paper/70 backdrop-blur-sm">
+            <div className="pointer-events-none absolute inset-3 border border-white/12" />
+            <div className="absolute left-4 top-4 z-10 border border-white/15 bg-black/45 px-2 py-1 font-mono text-[10px] uppercase tracking-[0.18em] text-paper/76 backdrop-blur-sm">
               {frameNumber}
             </div>
-            <div className="absolute bottom-0 left-0 right-0 translate-y-4 p-5 opacity-0 transition duration-500 group-hover:translate-y-0 group-hover:opacity-100">
-              <p className="text-xs uppercase tracking-[0.16em] text-ember">{work.client}</p>
-              <p className="mt-2 text-sm text-paper/80">{work.role.join(" / ")}</p>
+            <div className="absolute right-4 top-4 z-10 hidden border border-white/10 bg-black/35 px-2 py-1 font-mono text-[10px] tracking-[0.16em] text-paper/54 backdrop-blur-sm sm:block">
+              {work.year}
             </div>
           </div>
           <div className="flex flex-1 flex-col p-5 md:p-6">
-            <div className="flex items-start justify-between gap-5">
-              <h3 className="min-h-[3.5rem] text-xl font-medium leading-tight text-paper transition duration-500 group-hover:-translate-y-1 md:min-h-[4rem] md:text-2xl">{work.title}</h3>
-              <span className="shrink-0 text-sm text-muted">{work.year}</span>
+            <div className="flex items-start justify-between gap-4 border-b border-white/10 pb-4">
+              <div className="min-w-0">
+                <p className="font-mono text-[10px] tracking-[0.18em] text-ember">{work.client}</p>
+                <h3 className="mt-3 text-[clamp(1.35rem,4.8vw,1.7rem)] font-medium leading-tight text-paper transition duration-500 group-hover:-translate-y-0.5 md:text-2xl">
+                  {work.title}
+                </h3>
+              </div>
+              <span className="shrink-0 font-mono text-xs tracking-[0.14em] text-muted">{work.year}</span>
             </div>
-            <div className="mt-auto pt-3">
-              <p className="font-mono text-[10px] tracking-[0.14em] text-muted">
-                {work.client} / {primaryRole} / {work.year}
-              </p>
-              <p className="mt-2 text-sm text-muted">{work.category}</p>
+
+            <dl className="mt-4 grid gap-3 text-sm">
+              <div className="grid grid-cols-[3.8rem_1fr] gap-3">
+                <dt className="font-mono text-[10px] tracking-[0.16em] text-muted">类型</dt>
+                <dd className="text-paper/78">{work.category}</dd>
+              </div>
+              <div className="grid grid-cols-[3.8rem_1fr] gap-3">
+                <dt className="font-mono text-[10px] tracking-[0.16em] text-muted">职责</dt>
+                <dd className="text-paper/78">{work.role.join(" / ")}</dd>
+              </div>
+            </dl>
+
+            <div className="mt-auto flex flex-wrap gap-2 pt-5">
+              {work.tags.slice(0, 3).map((tag) => (
+                <span key={tag} className="rounded-full border border-white/10 px-3 py-1 text-xs text-muted">
+                  {tag}
+                </span>
+              ))}
             </div>
           </div>
+          <div className="work-card__perforation is-bottom" aria-hidden="true" />
         </article>
       </button>
 

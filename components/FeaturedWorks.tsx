@@ -35,7 +35,7 @@ export default function FeaturedWorks() {
             <h2 className="section-title">纪录片、商业广告与品牌影像作品。</h2>
           </div>
           <p data-motion-copy className="section-copy md:max-w-md md:justify-self-end">
-            以真实人物、场景行动与品牌情绪为核心的影像项目。点击作品可查看项目摘要与替换视频入口。
+            以真实人物、场景行动与品牌情绪为核心的影像项目。点击作品查看完整影片与项目信息。
           </p>
         </div>
 
