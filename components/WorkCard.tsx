@@ -29,7 +29,7 @@ export default function WorkCard({ work, index, priority = false }: WorkCardProp
   const isEmbeddedVideo = Boolean(embedUrl);
   const isXinpianchangVideo = embedUrl.includes("player.xinpianchang.com");
   const shouldCropXinpianchangVideo = isXinpianchangVideo && !["corn-journey", "xingyi-dessert-shop"].includes(work.slug);
-  const frameNumber = `镜头 ${String(index + 1).padStart(3, "0")}`;
+  const frameNumber = `作品 ${String(index + 1).padStart(3, "0")}`;
   const primaryRole = work.role[0] ?? "影像创作";
 
   useEffect(() => {

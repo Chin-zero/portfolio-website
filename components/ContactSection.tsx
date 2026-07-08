@@ -43,7 +43,7 @@ export default function ContactSection() {
             </div>
             <div className="border-b border-white/10 pb-6">
               <dt className="font-mono text-xs uppercase tracking-[0.16em] text-muted">职责</dt>
-              <dd className="mt-2 text-xl text-paper">摄影师</dd>
+              <dd className="mt-2 text-xl text-paper">摄影师/编导</dd>
             </div>
             <div className="border-b border-white/10 pb-6">
               <dt className="font-mono text-xs uppercase tracking-[0.16em] text-muted">所在地</dt>

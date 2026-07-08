@@ -125,7 +125,7 @@ export const works: Work[] = [
   {
     slug: "our-babies",
     title: "我们和我们的宝贝",
-    client: "公益项目",
+    client: "阿里巴巴公益项目",
     category: "纪录片 / 公益故事",
     role: ["摄影", "影像创作"],
     year: "2025",
