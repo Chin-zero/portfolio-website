@@ -45,7 +45,7 @@ export default function FeaturedWorks() {
 
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {works.map((work, index) => (
-            <WorkCard key={work.slug} work={work} index={index} priority={index < 3} />
+            <WorkCard key={work.slug} work={work} index={index} />
           ))}
         </div>
       </div>

@@ -163,7 +163,7 @@ export default function ResumeLanyard() {
         <span className="resume-lanyard__content">
           <span className="resume-lanyard__eyebrow">简历</span>
           <span className="resume-lanyard__name">张秦</span>
-          <span className="resume-lanyard__role">导演 / 摄影师</span>
+          <span className="resume-lanyard__role">摄影师 / 编导</span>
         </span>
       </span>
     </a>

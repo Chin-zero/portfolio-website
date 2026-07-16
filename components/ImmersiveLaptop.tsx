@@ -64,7 +64,7 @@ export default function ImmersiveLaptop() {
   return (
     <section
       ref={sectionRef}
-      className="immersive-laptop film-grain relative h-[210vh] overflow-clip bg-[#060606] text-paper"
+      className="immersive-laptop film-grain relative h-[180vh] overflow-clip bg-[#060606] text-paper"
       aria-label="作品网站预览"
     >
       <div
@@ -148,7 +148,6 @@ export default function ImmersiveLaptop() {
           <div className="immersive-laptop__montage-scan absolute inset-0" />
         </div>
         <div className="immersive-laptop__shutter absolute inset-0 z-40 pointer-events-none" aria-hidden="true" />
-        <div className="immersive-laptop__handoff absolute inset-0 pointer-events-none" aria-hidden="true" />
       </div>
     </section>
   );

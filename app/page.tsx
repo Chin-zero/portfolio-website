@@ -28,7 +28,7 @@ function HomeHero() {
         <div className="flex flex-col items-start">
           <div className="hero-opening__eyebrow inline-flex items-center gap-3 rounded-full border border-paper/15 bg-paper/5 px-4 py-1.5 backdrop-blur-sm">
             <span className="font-mono text-[9px] uppercase tracking-[0.25em] text-paper/60">
-              导演 / 摄影 / AIGC 视觉
+              摄影师 / 编导 / AIGC 视觉
             </span>
           </div>
 

@@ -1,14 +1,13 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { type KeyboardEvent, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import type { Work } from "@/data/works";
 
 type WorkCardProps = {
   work: Work;
   index: number;
-  priority?: boolean;
 };
 
 function getBilibiliEmbedUrl(url: string) {
@@ -21,9 +20,11 @@ function getEmbedUrl(url: string) {
   return getBilibiliEmbedUrl(url);
 }
 
-export default function WorkCard({ work, index, priority = false }: WorkCardProps) {
+export default function WorkCard({ work, index }: WorkCardProps) {
   const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const dialogRef = useRef<HTMLDivElement | null>(null);
+  const closeButtonRef = useRef<HTMLButtonElement | null>(null);
   const hasVideo = work.videoUrl && work.videoUrl !== "#";
   const embedUrl = hasVideo ? getEmbedUrl(work.videoUrl) : "";
   const isEmbeddedVideo = Boolean(embedUrl);
@@ -33,10 +34,24 @@ export default function WorkCard({ work, index, priority = false }: WorkCardProp
   const primaryRole = work.role[0] ?? "影像创作";
 
   useEffect(() => {
-    document.body.classList.toggle("work-video-open", open);
+    if (!open) return;
+
+    const previouslyFocused = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    const previousOverflow = document.body.style.overflow;
+    document.body.classList.add("work-video-open");
+    document.body.style.overflow = "hidden";
+    const focusTimer = window.setTimeout(() => closeButtonRef.current?.focus(), 0);
+    const handleEscape = (event: globalThis.KeyboardEvent) => {
+      if (event.key === "Escape") setOpen(false);
+    };
+    window.addEventListener("keydown", handleEscape);
 
     return () => {
+      window.clearTimeout(focusTimer);
+      window.removeEventListener("keydown", handleEscape);
       document.body.classList.remove("work-video-open");
+      document.body.style.overflow = previousOverflow;
+      previouslyFocused?.focus();
     };
   }, [open]);
 
@@ -44,15 +59,45 @@ export default function WorkCard({ work, index, priority = false }: WorkCardProp
     setMounted(true);
   }, []);
 
+  const handleDialogKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
+    if (event.key !== "Tab" || !dialogRef.current) return;
+
+    const focusable = Array.from(
+      dialogRef.current.querySelectorAll<HTMLElement>(
+        'button:not([disabled]), a[href], iframe, video[controls], [tabindex]:not([tabindex="-1"])'
+      )
+    );
+    if (focusable.length === 0) return;
+
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  };
+
   const modal = (
-    <div className="fixed inset-0 z-[999] flex items-end bg-black/80 p-0 backdrop-blur-md md:items-center md:p-8" role="dialog" aria-modal="true">
-      <button className="absolute inset-0 cursor-default" type="button" aria-label="Close modal" onClick={() => setOpen(false)} />
-      <div className="relative mx-auto max-h-[92vh] w-full max-w-5xl overflow-y-auto border border-white/12 bg-[#080808] shadow-glow md:max-h-[86vh]">
+    <div className="fixed inset-0 z-[999] flex items-end bg-black/80 p-0 backdrop-blur-md md:items-center md:p-8">
+      <button className="absolute inset-0 cursor-default" type="button" tabIndex={-1} aria-label="关闭作品详情" onClick={() => setOpen(false)} />
+      <div
+        ref={dialogRef}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby={`work-modal-${work.slug}`}
+        tabIndex={-1}
+        onKeyDown={handleDialogKeyDown}
+        className="relative mx-auto max-h-[92vh] w-full max-w-5xl overscroll-contain overflow-y-auto border border-white/12 bg-[#080808] shadow-glow md:max-h-[86vh]"
+      >
         <button
+          ref={closeButtonRef}
           type="button"
           onClick={() => setOpen(false)}
           className="focus-ring absolute right-4 top-4 z-10 h-10 w-10 rounded-full border border-white/20 bg-black/50 text-xl leading-none text-paper transition hover:bg-paper hover:text-ink"
-          aria-label="Close"
+          aria-label="关闭作品详情"
         >
           ×
         </button>
@@ -88,7 +133,7 @@ export default function WorkCard({ work, index, priority = false }: WorkCardProp
         <div className="grid gap-8 p-6 md:grid-cols-[1.4fr_.8fr] md:p-9">
           <div>
             <p className="section-kicker">{work.client}</p>
-            <h3 className="mt-4 text-3xl font-medium leading-tight text-paper md:text-5xl">{work.title}</h3>
+            <h3 id={`work-modal-${work.slug}`} className="mt-4 text-3xl font-medium leading-tight text-paper md:text-5xl">{work.title}</h3>
             <p className="mt-5 section-copy">{work.description}</p>
             {hasVideo && !isEmbeddedVideo ? (
               <a
@@ -140,7 +185,6 @@ export default function WorkCard({ work, index, priority = false }: WorkCardProp
               src={work.cover}
               alt={`${work.title} cover`}
               fill
-              priority={priority}
               sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
               data-parallax-media
               className="object-cover opacity-90 brightness-90 saturate-90 transition duration-700 group-hover:scale-[1.04] group-hover:opacity-100 group-hover:brightness-100 group-hover:contrast-[1.06] group-hover:saturate-[1.05]"

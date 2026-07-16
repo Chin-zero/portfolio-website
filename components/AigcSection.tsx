@@ -1,9 +1,13 @@
 "use client";
 
+import Image from "next/image";
+import { useState } from "react";
 import Grainient from "@/components/Grainient";
 import { aigcVideos } from "@/data/aigcVideos";
 
 export default function AigcSection() {
+  const [activeVideo, setActiveVideo] = useState<string | null>(null);
+
   return (
     <section id="aigc" data-motion-section className="motion-section relative overflow-hidden border-t border-white/10 bg-ink py-24 md:py-36">
       <Grainient
@@ -44,6 +48,7 @@ export default function AigcSection() {
           {aigcVideos.map((video, index) => {
             const hasVideo = Boolean(video.videoUrl);
             const isEmbeddedVideo = /^https?:\/\//.test(video.videoUrl);
+            const isActive = activeVideo === video.slug;
             const frameNumber = `AI 影像 ${String(index + 1).padStart(2, "0")}`;
 
             return (
@@ -53,16 +58,41 @@ export default function AigcSection() {
                 className="group overflow-hidden border border-white/10 bg-white/[0.035] transition duration-500 hover:border-white/24 hover:bg-white/[0.055]"
               >
                 <div data-image-reveal className="work-image-frame relative aspect-video overflow-hidden border border-white/[0.08] bg-[radial-gradient(circle_at_20%_20%,rgba(192,138,85,0.24),transparent_30%),linear-gradient(135deg,#121212,#050505_58%,#211111)]">
-                  {hasVideo && isEmbeddedVideo ? (
+                  {hasVideo && isEmbeddedVideo && isActive ? (
                     <iframe
-                      className="h-full w-full"
+                      className="absolute inset-0 h-full w-full"
                       src={video.videoUrl}
                       title={`${video.title} player`}
                       allow="fullscreen; picture-in-picture"
                       allowFullScreen
+                      loading="lazy"
                       referrerPolicy="strict-origin-when-cross-origin"
                       sandbox="allow-scripts allow-same-origin allow-presentation"
                     />
+                  ) : hasVideo && isEmbeddedVideo ? (
+                    <button
+                      type="button"
+                      className="focus-ring absolute inset-0 block h-full w-full overflow-hidden text-left"
+                      onClick={() => setActiveVideo(video.slug)}
+                      aria-label={`加载并播放${video.title}`}
+                    >
+                      {video.poster ? (
+                        <Image
+                          src={video.poster}
+                          alt={`${video.title}封面`}
+                          fill
+                          sizes="(min-width: 1024px) 33vw, 100vw"
+                          className="object-cover opacity-80 brightness-75 saturate-90 transition duration-700 group-hover:scale-[1.03] group-hover:opacity-95 group-hover:brightness-90"
+                        />
+                      ) : null}
+                      <span className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/20" />
+                      <span className="absolute inset-0 flex flex-col items-center justify-center gap-3">
+                        <span className="flex h-16 w-16 items-center justify-center rounded-full border border-paper/35 bg-black/45 backdrop-blur-sm transition duration-300 group-hover:scale-105 group-hover:border-ember group-hover:bg-ember group-hover:text-ink">
+                          <span className="ml-1 block h-0 w-0 border-y-[9px] border-l-[14px] border-y-transparent border-l-current" />
+                        </span>
+                        <span className="font-mono text-[10px] tracking-[0.18em] text-paper/80">点击加载播放器</span>
+                      </span>
+                    </button>
                   ) : hasVideo ? (
                     <video
                       data-parallax-media
@@ -87,7 +117,7 @@ export default function AigcSection() {
                       </div>
                     </div>
                   )}
-                  <div className="absolute left-4 top-4 z-10 border border-white/15 bg-black/35 px-2 py-1 font-mono text-[10px] uppercase tracking-[0.18em] text-paper/70 backdrop-blur-sm">
+                  <div className="pointer-events-none absolute left-4 top-4 z-10 border border-white/15 bg-black/35 px-2 py-1 font-mono text-[10px] uppercase tracking-[0.18em] text-paper/70 backdrop-blur-sm">
                     {frameNumber}
                   </div>
                 </div>

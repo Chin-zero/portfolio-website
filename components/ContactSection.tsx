@@ -8,7 +8,7 @@ export default function ContactSection() {
             <h2 className="section-title contact-title uppercase">Let&apos;s complete the next work together!</h2>
           </div>
           <p className="mt-6 font-mono text-xs uppercase tracking-[0.2em] text-paper/55">
-            摄影师<br />张秦 / CHIN
+            摄影师 / 编导<br />张秦 / CHIN
           </p>
           <p data-motion-copy className="mt-8 max-w-2xl section-copy">
             如果你正在寻找一位能够参与前期策划、现场拍摄与后期交付的影像创作者，欢迎联系我。
@@ -43,7 +43,7 @@ export default function ContactSection() {
             </div>
             <div className="border-b border-white/10 pb-6">
               <dt className="font-mono text-xs uppercase tracking-[0.16em] text-muted">职责</dt>
-              <dd className="mt-2 text-xl text-paper">摄影师/编导</dd>
+              <dd className="mt-2 text-xl text-paper">摄影师 / 编导</dd>
             </div>
             <div className="border-b border-white/10 pb-6">
               <dt className="font-mono text-xs uppercase tracking-[0.16em] text-muted">所在地</dt>

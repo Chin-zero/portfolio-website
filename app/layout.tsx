@@ -4,15 +4,33 @@ import FilmVignette from "@/components/FilmVignette";
 import Grainient from "@/components/Grainient";
 import "./globals.css";
 
+const siteUrl = process.env.CF_PAGES_URL ?? process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+
 export const metadata: Metadata = {
-  title: "张秦 CHIN | 纪录片摄影师与导演",
+  metadataBase: new URL(siteUrl),
+  title: "张秦 CHIN | 纪录片摄影师与编导",
   description:
-    "张秦，纪录片摄影师、导演与商业影像创作者，专注纪录片、品牌短片、TVC、新媒体视频与商业影像创作。",
+    "张秦，纪录片摄影师、编导与商业影像创作者，专注纪录片、品牌短片、TVC、新媒体视频与商业影像创作。",
+  authors: [{ name: "张秦 / CHIN" }],
+  creator: "张秦 / CHIN",
+  openGraph: {
+    title: "张秦 CHIN | 影像作品集",
+    description: "纪录片、品牌短片、商业影像与 AIGC 视觉作品集。",
+    type: "website",
+    locale: "zh_CN",
+    siteName: "张秦 CHIN 影像作品集"
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "张秦 CHIN | 影像作品集",
+    description: "纪录片、品牌短片、商业影像与 AIGC 视觉作品集。"
+  },
   keywords: [
     "张秦",
     "CHIN",
     "纪录片摄影师",
     "摄影师",
+    "编导",
     "导演",
     "商业短片",
     "品牌影像",

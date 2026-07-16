@@ -4,7 +4,7 @@ export default function Footer() {
       <div className="section-shell flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
         <div>
           <p className="text-lg font-medium tracking-[0.12em] text-paper">CHIN / 张秦</p>
-          <p className="mt-3 text-sm text-muted">纪录片摄影师 / 导演</p>
+          <p className="mt-3 text-sm text-muted">纪录片摄影师 / 编导</p>
           <p className="mt-6 text-xs text-paper/45">© 2026 张秦。保留所有权利。</p>
         </div>
         <nav className="flex flex-wrap gap-x-6 gap-y-3 text-sm text-muted" aria-label="页脚导航">

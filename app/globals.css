@@ -1,4 +1,11 @@
-@import url("https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,25..151,100..1000&display=swap");
+@font-face {
+  font-family: "Roboto Flex";
+  src: url("/fonts/roboto-flex-latin.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 100 1000;
+  font-stretch: 25% 151%;
+  font-display: swap;
+}
 
 @tailwind base;
 @tailwind components;
@@ -245,8 +252,6 @@ body::before {
   --site-progress: clamp(0, calc((var(--laptop-progress) - 0.82) / 0.12), 1);
   --tunnel-progress: clamp(0, calc((var(--laptop-progress) - 0.54) / 0.18), 1);
   --montage-progress: clamp(0, calc((var(--laptop-progress) - 0.64) / 0.08), 1);
-  --montage-exit: clamp(0, calc((var(--laptop-progress) - 0.84) / 0.08), 1);
-  --handoff-mask: clamp(0, calc((var(--laptop-progress) - 0.8) / 0.08), 1);
 }
 
 .immersive-laptop {
@@ -945,22 +950,22 @@ body::before {
 
 .immersive-laptop__shutter {
   z-index: 34 !important;
-  opacity: clamp(0, calc((var(--blackout-progress) * 0.9) + (var(--handoff-mask) * 0.72) - var(--site-progress) * 1.15), 0.86);
+  opacity: clamp(0, calc(var(--blackout-progress) * 0.9 - var(--site-progress) * 1.55), 0.86);
   background:
     radial-gradient(circle at 50% 48%, rgba(255, 255, 255, 0.08), transparent 8%, rgba(0, 0, 0, 0.9) 32%, #020202 100%);
-  backdrop-filter: blur(calc((var(--blackout-progress) + var(--handoff-mask)) * 12px));
-  transform: scale(calc(1 + (var(--blackout-progress) + var(--handoff-mask)) * 0.06));
+  backdrop-filter: blur(calc(var(--blackout-progress) * 12px));
+  transform: scale(calc(1 + var(--blackout-progress) * 0.06));
   will-change: opacity, backdrop-filter, transform;
 }
 
 .immersive-laptop__montage {
   z-index: 36;
-  opacity: clamp(0, calc(var(--montage-progress) * 1.85 - var(--montage-exit)), 1);
+  opacity: clamp(0, calc(var(--montage-progress) * 1.85), 1);
   filter:
-    blur(calc((1 - var(--montage-progress)) * 14px + var(--montage-exit) * 8px))
+    blur(calc((1 - var(--montage-progress)) * 14px))
     saturate(0.82)
     contrast(1.12);
-  transform: scale(calc(1.08 + var(--montage-progress) * 0.1 - var(--montage-exit) * 0.04));
+  transform: scale(calc(1.08 + var(--montage-progress) * 0.1));
   background: #050505;
   overflow: hidden;
   will-change: opacity, filter, transform;
@@ -992,16 +997,6 @@ body::before {
     radial-gradient(circle at center, transparent 34%, rgba(0, 0, 0, 0.64) 100%);
   mix-blend-mode: overlay;
   opacity: 0.62;
-}
-
-.immersive-laptop__handoff {
-  z-index: 38;
-  opacity: clamp(0, calc((var(--site-progress) - 0.08) * 1.45), 1);
-  background:
-    radial-gradient(circle at 50% 35%, rgba(192, 138, 85, 0.12), transparent 32%),
-    linear-gradient(180deg, #050505 0%, #210504 42%, #5b0b07 100%);
-  transform: scale(calc(1.02 - var(--site-progress) * 0.02));
-  will-change: opacity, transform;
 }
 
 .section-shell {
@@ -1547,7 +1542,7 @@ body.work-video-open .resume-lanyard__card {
   }
   .hero-corner-labels { inset: 78px 16px 24px; }
   .hero-corner-labels span { font-size: 9px; letter-spacing: 0.12em; }
-  .immersive-laptop { height: 240vh; }
+  .immersive-laptop { height: 200vh; }
   .immersive-laptop__device {
     width: min(88vw, 420px);
     transform:
