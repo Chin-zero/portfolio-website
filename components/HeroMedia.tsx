@@ -59,7 +59,7 @@ export default function HeroMedia() {
   return (
     <div className="hero-opening__media absolute inset-0 z-10 bg-black">
       <Image
-        src="/images/hero/hero.jpg"
+        src="/images/hero/hero-mountain.jpg"
         alt="张秦作品视觉片段"
         fill
         priority
@@ -75,7 +75,7 @@ export default function HeroMedia() {
         muted
         loop
         playsInline
-        poster="/images/hero/hero.jpg"
+        poster="/images/hero/hero-mountain.jpg"
         preload="auto"
         onLoadedData={() => setVideoReady(true)}
         onCanPlay={() => setVideoReady(true)}
