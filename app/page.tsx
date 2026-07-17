@@ -12,6 +12,7 @@ import HeroMedia from "@/components/HeroMedia";
 import ImmersiveLaptop from "@/components/ImmersiveLaptop";
 import MotionSystem from "@/components/MotionSystem";
 import TextPressure from "@/components/TextPressure";
+import { siteFeatures } from "@/data/siteFeatures";
 
 function HomeHero() {
   return (
@@ -97,7 +98,7 @@ export default function Home() {
       <HomeHero />
       <ImmersiveLaptop />
       <FeaturedWorks />
-      <AigcSection />
+      {siteFeatures.showAigcSection ? <AigcSection /> : null}
       <AboutSection />
       <CapabilitiesSection />
       <ClientsSection />

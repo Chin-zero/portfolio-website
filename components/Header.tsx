@@ -2,10 +2,11 @@
 
 import { useState } from "react";
 import ResumeLanyard from "@/components/ResumeLanyard";
+import { siteFeatures } from "@/data/siteFeatures";
 
 const navItems = [
   { label: "作品", href: "#work" },
-  { label: "AIGC", href: "#aigc" },
+  ...(siteFeatures.showAigcSection ? [{ label: "AIGC", href: "#aigc" }] : []),
   { label: "关于", href: "#about" },
   { label: "服务", href: "#services" },
   { label: "客户", href: "#clients" },
