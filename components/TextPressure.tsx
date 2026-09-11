@@ -26,8 +26,8 @@ const dist = (a: { x: number; y: number }, b: { x: number; y: number }) => {
 };
 
 const getAttr = (distance: number, maxDist: number, minVal: number, maxVal: number) => {
-  const val = maxVal - Math.abs((maxVal * distance) / maxDist);
-  return Math.max(minVal, val + minVal);
+  const proximity = Math.max(0, Math.min(1, 1 - distance / maxDist));
+  return minVal + (maxVal - minVal) * proximity;
 };
 
 const debounce = (func: () => void, delay: number) => {
@@ -97,8 +97,8 @@ export default function TextPressure({
 
   const setSize = useCallback(() => {
     if (!containerRef.current || !titleRef.current) return;
-    const { width: containerWidth, height } = containerRef.current.getBoundingClientRect();
-    const nextFontSize = Math.max(containerWidth / (chars.length / 1.78), minFontSize);
+    const { clientWidth: containerWidth, clientHeight: height } = containerRef.current;
+    const nextFontSize = Math.max(Math.min(containerWidth / (chars.length / 1.78), height), minFontSize);
 
     setFontSize(nextFontSize);
     setScaleY(1);
@@ -137,8 +137,8 @@ export default function TextPressure({
           const rect = span.getBoundingClientRect();
           const charCenter = { x: rect.x + rect.width / 2, y: rect.y + rect.height / 2 };
           const d = dist(mouseRef.current, charCenter);
-          const wdth = width ? Math.floor(getAttr(d, maxDist, 5, 200)) : 100;
-          const wght = weight ? Math.floor(getAttr(d, maxDist, 100, 900)) : 400;
+          const wdth = width ? Math.floor(getAttr(d, maxDist, 60, 200)) : 100;
+          const wght = weight ? Math.floor(getAttr(d, maxDist, 300, 900)) : 400;
           const italVal = italic ? getAttr(d, maxDist, 0, 1).toFixed(2) : "0";
           const alphaVal = alpha ? getAttr(d, maxDist, 0, 1).toFixed(2) : "1";
           const nextSettings = `'wght' ${wght}, 'wdth' ${wdth}, 'ital' ${italVal}`;
@@ -146,7 +146,7 @@ export default function TextPressure({
           if (span.style.fontVariationSettings !== nextSettings) {
             span.style.fontVariationSettings = nextSettings;
           }
-          if (alpha && span.style.opacity !== alphaVal) {
+          if (span.style.opacity !== alphaVal) {
             span.style.opacity = alphaVal;
           }
         });

@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import ResumeLanyard from "@/components/ResumeLanyard";
 import { siteFeatures } from "@/data/siteFeatures";
 
 const navItems = [
@@ -18,7 +17,6 @@ export default function Header() {
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-ink/70 backdrop-blur-xl">
-      <ResumeLanyard />
       <div className="section-shell flex h-16 items-center justify-between md:h-20">
         <a href="#top" className="focus-ring text-sm font-medium tracking-[0.14em] text-paper">
           张秦

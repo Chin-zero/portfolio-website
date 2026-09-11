@@ -9,6 +9,12 @@ export type Work = {
   videoUrl: string;
   description: string;
   tags: string[];
+  recognition?: {
+    title: string;
+    category: string;
+    status: string;
+    sourceUrl: string;
+  };
 };
 
 import { videoUrl } from "@/lib/media";
@@ -20,9 +26,9 @@ export const works: Work[] = [
     client: "吉利",
     category: "纪录片 / 公益影像",
     role: ["摄影", "现场执行"],
-    year: "2025",
+    year: "2026",
     cover: "/images/works/optimized/altay-mobile-clinic-cover.jpg",
-    videoUrl: videoUrl("https://player.xinpianchang.com/?aid=13733171&mid=jlyzw0zJqeyQB198"),
+    videoUrl: videoUrl("https://player.xinpianchang.com/?aid=13748535&mid=0VAm7Oomann7DRnW"),
     description: "围绕阿勒泰移动诊疗场景展开的公益纪录影像，记录道路、人物与真实行动中的温度。",
     tags: ["纪录片", "公益", "移动诊室"]
   },
@@ -35,8 +41,14 @@ export const works: Work[] = [
     year: "2025",
     cover: "/images/works/optimized/under-the-hanging-lake-cover.jpg",
     videoUrl: videoUrl("https://player.xinpianchang.com/?aid=13520309&mid=bKG8Qd32Xb54RJMy"),
-    description: "以高海拔自然环境、人物探索与真实行动为核心的品牌纪录短片。",
-    tags: ["纪录片", "品牌短片", "户外"]
+    description: "走进高原冰湖，记录科技如何助力科研与生态守护的品牌纪录短片。",
+    tags: ["纪录片", "品牌短片", "生态保护"],
+    recognition: {
+      title: "2026 上海国际广告奖",
+      category: "社会责任类 · 生态保护",
+      status: "入围",
+      sourceUrl: "https://mp.weixin.qq.com/s/6jqwjSlr8Iq4m_ftSWhTtA"
+    }
   },
   {
     slug: "echoes-of-yiming",
@@ -68,7 +80,7 @@ export const works: Work[] = [
     client: "吉利",
     category: "商业影像 / 品牌短片",
     role: ["摄影", "现场执行"],
-    year: "2025",
+    year: "2026",
     cover: "/images/works/optimized/zeekr-8x-cover.jpg",
     videoUrl: videoUrl("https://player.xinpianchang.com/?aid=13671059&mid=yM1l43LEVgpQod2V"),
     description: "结合车辆、飞机与真实测试场景的商业影像项目，强调速度、力量与技术感。",

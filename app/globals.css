@@ -1120,7 +1120,7 @@ body::before {
 }
 
 .hero-opening__title .text-pressure {
-  display: inline-block;
+  display: block;
   transform: translate3d(0, 112%, 0) scaleX(0.66);
   transform-origin: 0 55%;
   filter: blur(18px);
@@ -1317,8 +1317,8 @@ body::before {
   --lanyard-tilt-y: 0deg;
   position: absolute;
   right: clamp(18px, 5vw, 76px);
-  top: 100%;
-  z-index: 1;
+  top: 80px;
+  z-index: 45;
   display: block;
   width: 118px;
   height: 214px;
@@ -1552,22 +1552,12 @@ body.work-video-open .resume-lanyard__card {
   .immersive-laptop__copy {
     top: 10vh;
   }
-  .resume-lanyard {
-    --lanyard-scale: 0.54;
-    right: -28px;
-    width: 92px;
-    height: 172px;
-    transform-origin: 50% -6px;
-    opacity: 0.88;
-  }
+}
 
-  .resume-lanyard__cord { height: 98px; width: 76px; }
-  .resume-lanyard__clip { top: 50px; }
-  .resume-lanyard__card { top: 60px; width: 76px; min-height: 84px; }
-  .resume-lanyard__media { height: 42px; margin: 16px 8px 0; }
-  .resume-lanyard__content { padding: 8px; }
-  .resume-lanyard__name { font-size: 16px; }
-  .resume-lanyard__role { display: none; }
+@media (max-width: 1023px), (max-height: 799px) {
+  .resume-lanyard {
+    display: none;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

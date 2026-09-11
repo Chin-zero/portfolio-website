@@ -11,6 +11,7 @@ import Header from "@/components/Header";
 import HeroMedia from "@/components/HeroMedia";
 import ImmersiveLaptop from "@/components/ImmersiveLaptop";
 import MotionSystem from "@/components/MotionSystem";
+import ResumeLanyard from "@/components/ResumeLanyard";
 import TextPressure from "@/components/TextPressure";
 import { siteFeatures } from "@/data/siteFeatures";
 
@@ -20,12 +21,13 @@ function HomeHero() {
       <div className="hero-opening__curtain" />
       <div className="hero-opening__wipe" />
       <HeroMedia />
+      <ResumeLanyard />
 
       <div className="absolute inset-0 z-20 bg-gradient-to-t from-ink via-ink/30 to-transparent" />
 
       <div className="hero-flicker z-30" />
 
-      <div className="section-shell relative z-40 flex min-h-screen flex-col justify-end pb-12 pt-0">
+      <div className="section-shell relative z-40 flex min-h-screen flex-col justify-end pb-16 pt-24 md:pt-28">
         <div className="flex flex-col items-start">
           <div className="hero-opening__eyebrow inline-flex items-center gap-3 rounded-full border border-paper/15 bg-paper/5 px-4 py-1.5 backdrop-blur-sm">
             <span className="font-mono text-[9px] uppercase tracking-[0.25em] text-paper/60">
@@ -39,7 +41,7 @@ function HomeHero() {
               width
               weight
               italic={false}
-              alpha
+              alpha={false}
               textColor="#FFFFFF"
               minFontSize={72}
             />

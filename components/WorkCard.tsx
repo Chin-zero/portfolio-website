@@ -20,18 +20,44 @@ function getEmbedUrl(url: string) {
   return getBilibiliEmbedUrl(url);
 }
 
+function getWatchUrl(url: string) {
+  try {
+    const source = new URL(url);
+    if (source.hostname === "player.xinpianchang.com") {
+      const aid = source.searchParams.get("aid");
+      if (aid && /^\d+$/.test(aid)) return `https://www.xinpianchang.com/a${aid}`;
+    }
+    if (source.hostname === "player.bilibili.com") {
+      const bvid = source.searchParams.get("bvid");
+      if (bvid && /^BV[a-zA-Z0-9]+$/.test(bvid)) return `https://www.bilibili.com/video/${bvid}/`;
+    }
+  } catch {
+    // Local video paths do not need an external watch URL.
+  }
+  return url;
+}
+
 export default function WorkCard({ work, index }: WorkCardProps) {
   const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [playerAttempt, setPlayerAttempt] = useState(0);
+  const [playerStatus, setPlayerStatus] = useState<"loading" | "loaded" | "slow" | "error">("loading");
   const dialogRef = useRef<HTMLDivElement | null>(null);
   const closeButtonRef = useRef<HTMLButtonElement | null>(null);
   const hasVideo = work.videoUrl && work.videoUrl !== "#";
   const embedUrl = hasVideo ? getEmbedUrl(work.videoUrl) : "";
-  const isEmbeddedVideo = Boolean(embedUrl);
   const isXinpianchangVideo = embedUrl.includes("player.xinpianchang.com");
-  const shouldCropXinpianchangVideo = isXinpianchangVideo && !["corn-journey", "xingyi-dessert-shop"].includes(work.slug);
+  const watchUrl = hasVideo ? getWatchUrl(work.videoUrl) : "";
   const frameNumber = `作品 ${String(index + 1).padStart(3, "0")}`;
-  const primaryRole = work.role[0] ?? "影像创作";
+
+  useEffect(() => {
+    if (!open || !hasVideo) return;
+    setPlayerStatus("loading");
+    const timer = window.setTimeout(() => {
+      setPlayerStatus((status) => status === "loading" ? "slow" : status);
+    }, 12000);
+    return () => window.clearTimeout(timer);
+  }, [open, hasVideo, playerAttempt]);
 
   useEffect(() => {
     if (!open) return;
@@ -92,31 +118,43 @@ export default function WorkCard({ work, index }: WorkCardProps) {
         onKeyDown={handleDialogKeyDown}
         className="relative mx-auto max-h-[92vh] w-full max-w-5xl overscroll-contain overflow-y-auto border border-white/12 bg-[#080808] shadow-glow md:max-h-[86vh]"
       >
-        <button
-          ref={closeButtonRef}
-          type="button"
-          onClick={() => setOpen(false)}
-          className="focus-ring absolute right-4 top-4 z-10 h-10 w-10 rounded-full border border-white/20 bg-black/50 text-xl leading-none text-paper transition hover:bg-paper hover:text-ink"
-          aria-label="关闭作品详情"
-        >
-          ×
-        </button>
-        <div className="relative aspect-video bg-[linear-gradient(135deg,#161616,#050505_60%,#2b2119)]">
+        <div className="flex min-h-14 items-center justify-between gap-4 border-b border-white/10 px-4">
+          <p className="min-w-0 text-xs text-muted">{frameNumber}</p>
+          <button
+            ref={closeButtonRef}
+            type="button"
+            onClick={() => setOpen(false)}
+            className="focus-ring h-10 w-10 shrink-0 rounded-full border border-white/20 bg-black/50 text-xl leading-none text-paper transition hover:bg-paper hover:text-ink"
+            aria-label="关闭作品详情"
+          >
+            ×
+          </button>
+        </div>
+        <div className="relative aspect-video overflow-hidden bg-black">
           {embedUrl ? (
             <iframe
-              className={
-                shouldCropXinpianchangVideo
-                  ? "absolute -top-14 left-0 h-[calc(100%+3.5rem)] w-full"
-                  : "h-full w-full"
-              }
+              key={playerAttempt}
+              className="absolute inset-0 block h-full w-full border-0"
               src={embedUrl}
               title={`${work.title} player`}
-              allow="fullscreen; picture-in-picture"
+              allow="autoplay; fullscreen; picture-in-picture; encrypted-media"
               allowFullScreen
               sandbox="allow-scripts allow-same-origin allow-presentation"
+              onLoad={() => setPlayerStatus("loaded")}
+              onError={() => setPlayerStatus("error")}
             />
           ) : hasVideo ? (
-            <video className="h-full w-full object-cover" src={work.videoUrl} controls preload="none" playsInline poster={work.cover} />
+            <video
+              key={playerAttempt}
+              className="h-full w-full object-contain"
+              src={work.videoUrl}
+              controls
+              preload="metadata"
+              playsInline
+              poster={work.cover}
+              onLoadedMetadata={() => setPlayerStatus("loaded")}
+              onError={() => setPlayerStatus("error")}
+            />
           ) : (
             <Image
               src={work.cover}
@@ -130,21 +168,57 @@ export default function WorkCard({ work, index }: WorkCardProps) {
             />
           )}
         </div>
+        {hasVideo ? (
+          <div className="flex flex-wrap items-center justify-between gap-x-5 gap-y-2 border-b border-white/10 px-4 py-3 text-xs sm:px-6">
+            <p role="status" className="min-w-0 text-muted">
+              {playerStatus === "loading" ? "正在加载播放器…" :
+                playerStatus === "slow" ? "加载较慢，可重试或前往原站观看。" :
+                  playerStatus === "error" ? "视频暂时无法加载，可重试或前往原站观看。" :
+                    isXinpianchangVideo ? "新片场视频" : embedUrl ? "哔哩哔哩视频" : null}
+            </p>
+            <div className="flex shrink-0 items-center gap-5">
+              <button
+                type="button"
+                onClick={() => setPlayerAttempt((attempt) => attempt + 1)}
+                className="focus-ring min-h-10 text-muted underline underline-offset-4 transition hover:text-paper"
+              >
+                重新加载
+              </button>
+              <a
+                href={watchUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="focus-ring inline-flex min-h-10 items-center text-paper underline underline-offset-4 transition hover:text-ember"
+              >
+                {isXinpianchangVideo ? "在新片场观看" : embedUrl ? "在哔哩哔哩观看" : "单独打开视频"}
+              </a>
+            </div>
+          </div>
+        ) : null}
         <div className="grid gap-8 p-6 md:grid-cols-[1.4fr_.8fr] md:p-9">
           <div>
             <p className="section-kicker">{work.client}</p>
             <h3 id={`work-modal-${work.slug}`} className="mt-4 text-3xl font-medium leading-tight text-paper md:text-5xl">{work.title}</h3>
             <p className="mt-5 section-copy">{work.description}</p>
-            {hasVideo && !isEmbeddedVideo ? (
-              <a
-                href={work.videoUrl}
-                className="focus-ring mt-8 inline-flex rounded-full bg-paper px-6 py-3 text-sm font-medium text-ink transition hover:bg-ember"
-              >
-                观看预览
-              </a>
-            ) : null}
           </div>
           <dl className="grid content-start gap-5 border-t border-white/10 pt-6 md:border-l md:border-t-0 md:pl-8 md:pt-0">
+            {work.recognition ? (
+              <div className="border-l-2 border-ember pl-4">
+                <dt className="text-xs text-muted">作品荣誉 · {work.recognition.status}</dt>
+                <dd className="mt-2 text-sm leading-relaxed">
+                  <p className="font-medium text-ember">{work.recognition.title}</p>
+                  <p className="mt-1 text-paper/80">{work.recognition.category}</p>
+                  <a
+                    href={work.recognition.sourceUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="focus-ring mt-3 inline-block text-xs text-muted underline underline-offset-4 transition hover:text-paper"
+                  >
+                    查看入围报道
+                  </a>
+                </dd>
+              </div>
+            ) : null}
             <div>
               <dt className="text-xs uppercase tracking-[0.16em] text-muted">类型</dt>
               <dd className="mt-2 text-paper">{work.category}</dd>
@@ -211,6 +285,15 @@ export default function WorkCard({ work, index }: WorkCardProps) {
               </div>
               <span className="shrink-0 font-mono text-xs tracking-[0.14em] text-muted">{work.year}</span>
             </div>
+
+            {work.recognition ? (
+              <div className="mt-4 border-l-2 border-ember pl-3 text-xs leading-relaxed">
+                <p className="font-medium text-ember">
+                  {work.recognition.title} · {work.recognition.status}
+                </p>
+                <p className="mt-1 text-paper/70">{work.recognition.category}</p>
+              </div>
+            ) : null}
 
             <dl className="mt-4 grid gap-3 text-sm">
               <div className="grid grid-cols-[3.8rem_1fr] gap-3">
