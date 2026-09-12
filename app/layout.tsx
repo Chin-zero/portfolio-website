@@ -8,14 +8,14 @@ const siteUrl = process.env.CF_PAGES_URL ?? process.env.NEXT_PUBLIC_SITE_URL ?? 
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: "张秦 CHIN | 纪录片摄影师与编导",
+  title: "张秦 CHIN | 摄影师 · 纪录片与商业影像",
   description:
-    "张秦，纪录片摄影师、编导与商业影像创作者，专注纪录片、品牌短片、TVC、新媒体视频与商业影像创作。",
+    "张秦，常驻郑州的摄影师，以摄影岗位为主要求职方向，专注纪录片、商业广告与品牌影像拍摄，具备布光、运镜、航拍及现场执行经验。",
   authors: [{ name: "张秦 / CHIN" }],
   creator: "张秦 / CHIN",
   openGraph: {
     title: "张秦 CHIN | 影像作品集",
-    description: "纪录片、品牌短片、商业影像与 AIGC 视觉作品集。",
+    description: "张秦摄影作品集，专注纪录片、商业广告与品牌影像拍摄。",
     type: "website",
     locale: "zh_CN",
     siteName: "张秦 CHIN 影像作品集"
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "张秦 CHIN | 影像作品集",
-    description: "纪录片、品牌短片、商业影像与 AIGC 视觉作品集。"
+    description: "张秦摄影作品集，专注纪录片、商业广告与品牌影像拍摄。"
   },
   keywords: [
     "张秦",
